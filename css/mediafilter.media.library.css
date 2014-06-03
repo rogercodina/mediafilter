@@ -27,11 +27,11 @@ ul#media-browser-custom-library-list{
     padding: 5px 10px 5px 0;
 }
 
-.form-type-checkboxes {
+#media-tab-mediafilter .form-type-checkboxes {
   float: left;
   width: 50%;
 }
 
-.form-type-checkbox label {
+#media-tab-mediafilter .form-type-checkbox label {
   margin-right: 4px;
 }
