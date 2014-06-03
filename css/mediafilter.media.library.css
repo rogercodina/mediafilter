@@ -1,0 +1,37 @@
+
+ul#media-browser-custom-library-list{
+  list-style: none;
+  margin: -10px 0 0 0;
+  padding: 0px;
+  background-color: white;
+}
+
+#media-tab-mediafilter #container{
+  padding:20px 0;
+}
+
+#media-tab-mediafilter #scrollbox{
+  height: 300px;
+  overflow:auto;
+  overflow-x:hidden;
+}
+
+#mediafilter-status {
+  clear: both;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-item-users .form-item {
+    float: left;
+    padding: 5px 10px 5px 0;
+}
+
+.form-type-checkboxes {
+  float: left;
+  width: 50%;
+}
+
+.form-type-checkbox label {
+  margin-right: 4px;
+}

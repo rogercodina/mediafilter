@@ -1,0 +1,136 @@
+<?php
+/**
+ * @file
+ * Implements custom media browser plugin to the media popup.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function mediafilter_menu() {
+  $items = array();
+
+  $items['mediafilter/media/browser/list'] = array(
+    'title' => 'Custom mediafilter',
+    'description' => 'Ajax Callback for getting custom media files',
+    'page callback' => 'mediafilter_media_browser_list',
+    'access callback' => 'mediafilter_access',
+    'access arguments' => array('edit'),
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/mediafilter.media.browser.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Access callback for media assets.
+ */
+function mediafilter_access($op) {
+  return (user_access('access user profiles') || user_access($op . ' media'));
+}
+
+/**
+ * Implements hook_media_browser_plugin_info().
+ */
+function mediafilter_media_browser_plugin_info() {
+  return array(
+    'mediafilter' => array(
+      '#weight' => 10,
+    ),
+  );
+}
+
+/**
+ * Implements hook_media_browser_plugin_view().
+ */
+function mediafilter_media_browser_plugin_view($plugin_name, $params) {
+  $path = drupal_get_path('module', 'mediafilter');
+
+  $params += array(
+    'types' => array(),
+    'multiselect' => FALSE,
+  );
+
+  // The multiselect parameter is a string.  So we check to see if it is set and
+  // adjust the local variable accordingly.
+  if ($params['multiselect'] != 'false' && $params['multiselect'] !== FALSE) {
+    $params['multiselect'] = TRUE;
+  }
+  switch ($plugin_name) {
+    case 'mediafilter':
+      return array(
+        '#title' => t('Library filter'),
+        '#attached' => array(
+          'js' => array(
+            $path . '/js/mediafilter.media.library.js',
+          ),
+          'css' => array(
+            $path . '/css/mediafilter.media.library.css',
+          ),
+        ),
+        '#settings' => array(
+          'viewMode' => 'thumbnails',
+          'getMediaUrl' => url('mediafilter/media/browser/list'),
+        ) + $params,
+        'prefix' => array(
+          '#markup' => '<div id="container"><div id="scrollbox">',
+        ),
+        'filter' => drupal_get_form('mediafilter_browser_filter_form'),
+        'content' => array(
+          '#markup' => '<ul id="media-browser-custom-library-list" class="media-list-thumbnails"></ul>',
+        ),
+        'status' => array(
+          '#markup' => '<div id="mediafilter-status"></div>',
+        ),
+        'suffix' => array('#markup' => '</div></div>'),
+      );
+  }
+}
+
+/**
+ * Creates a form for media filter.
+ */
+function mediafilter_browser_filter_form($form, &$form_state) {
+  $users = entity_load('user');
+  $users_option_list = mediafilter_users_option_list($users);
+
+  $form['mediafilter'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Filter result'),
+    '#weight' => 5,
+    '#collapsible' => TRUE,
+  );
+  $form['mediafilter']['users']  = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Filter by username'),
+    '#options' => $users_option_list,
+  );
+
+  $form['mediafilter']['filename'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Filter by name'), 
+    '#default_value' => '', 
+    '#size' => 60, 
+    '#maxlength' => 128
+  );
+
+  return $form;
+}
+
+/**
+ * Creates an associative array of users.
+ *
+ * @param object $users
+ *   The full list of site's user object.
+ *
+ * @return array
+ *   Returns an associative array of users $user[$user->uid] = $user->username
+ */
+function mediafilter_users_option_list($users) {
+  $return = array();
+  foreach ($users as $user) {
+    $return[$user->uid] = ($user->uid == 0) ? variable_get('anonymous', t('Anonymous')) : $user->name;
+  }
+  return $return;
+}

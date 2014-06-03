@@ -1,0 +1,7 @@
+name = Mediafilter
+description = Mediafilter module contains a custom media browser plugin to filter the displayed images.
+core = 7.x
+package = Media
+version = "7.x-1.0"
+
+dependencies[] = media
