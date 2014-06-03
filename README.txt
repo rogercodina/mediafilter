@@ -11,4 +11,6 @@ My customization of cheppers code consists of:
 3) Patched to correct https://drupal.org/node/2104493
 4) Added permission to enable/disable permission to use username filter
 
+I'm using this module together with Media 7.x-1.4 and it works like a charm!
+
 Many thanks to people on cheppers!!! We really need this while we don't have stable Media 7.x-2.x!
