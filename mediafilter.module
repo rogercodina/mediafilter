@@ -152,3 +152,20 @@ function mediafilter_users_option_list($users) {
   }
   return $return;
 }
+
+/**
+ * Some help for users
+ *
+ * Implements hook_help().
+ */
+function mediafilter_help($path, $arg) {
+  switch($path){
+    case 'admin/setting/mediafilter':
+      return 'To setup this module just go to Permision page (admin/people/permissions) and assign permission "Username filter usage" to roles which can use this filter';
+      break;
+    case 'admin/help#mediafilter'; 
+      $helpTxt='<p>To setup this module just go to Permision page (admin/people/permissions) and assign permission "Username filter usage" to roles which can use this filter</p>';
+      return $helpTxt;    
+    break;
+  }
+}
