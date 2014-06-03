@@ -32,6 +32,10 @@ ul#media-browser-custom-library-list{
   width: 50%;
 }
 
+#media-tab-mediafilter input.form-text {
+  width: 200px;
+}
+
 #media-tab-mediafilter .form-type-checkbox label {
   margin-right: 4px;
 }
