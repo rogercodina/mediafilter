@@ -27,7 +27,7 @@ ul#media-browser-custom-library-list{
     padding: 5px 10px 5px 0;
 }
 
-#media-tab-mediafilter .form-type-checkboxes {
+#media-tab-mediafilter .form-type-textfield {
   float: left;
   width: 50%;
 }

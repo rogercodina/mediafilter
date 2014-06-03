@@ -8,5 +8,7 @@ Based on http://cheppers.com/blog/create-custom-browser-widget-media-module
 My customization of cheppers code consists of:
 1) Brand new text input to filter files by filename
 2) Few CSS tweaks
+3) Patched to correct https://drupal.org/node/2104493
+4) Added permission to enable/disable permission to use username filter
 
 Many thanks to people on cheppers!!! We really need this while we don't have stable Media 7.x-2.x!

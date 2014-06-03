@@ -5,6 +5,21 @@
  */
 
 /**
+ * Defines a new permission
+ *
+ * Implements hook_permission().
+ */
+function mediafilter_permission() {
+  return array(
+    'mediafilter username filter' => array(
+      'title' => t('Username filter usage'),
+      'description' => t('Filter media by uploader user'),
+      'restrict access' => TRUE
+    ),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function mediafilter_menu() {
@@ -101,11 +116,6 @@ function mediafilter_browser_filter_form($form, &$form_state) {
     '#weight' => 5,
     '#collapsible' => TRUE,
   );
-  $form['mediafilter']['users']  = array(
-    '#type' => 'checkboxes',
-    '#title' => t('Filter by username'),
-    '#options' => $users_option_list,
-  );
 
   $form['mediafilter']['filename'] = array(
     '#type' => 'textfield', 
@@ -114,6 +124,14 @@ function mediafilter_browser_filter_form($form, &$form_state) {
     '#size' => 60, 
     '#maxlength' => 128
   );
+
+  if (user_access('mediafilter username filter')) {
+    $form['mediafilter']['users']  = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Filter by username'),
+      '#options' => $users_option_list,
+    );
+  }
 
   return $form;
 }
