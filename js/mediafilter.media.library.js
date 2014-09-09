@@ -167,7 +167,7 @@ Drupal.media.browser.mediafilter.prototype.render = function (renderElement) {
     return;
   }
   else {
-    var mediaList = $('##media-browser-custom-library-list', renderElement);
+    var mediaList = $('#media-browser-custom-library-list', renderElement);
     // If the list doesn't exist, bail.
     if (mediaList.length === 0) {
       throw('Cannot continue, list element is missing');
